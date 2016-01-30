@@ -3,7 +3,7 @@
       implicit none
       
       integer :: I, J
-      character * 1 :: TICTAC(3,3), WINNER
+      character(1) :: TICTAC(3,3), WINNER
       logical :: OVER
       logical :: CHKPLAY
       integer :: MOVE, TURN
@@ -70,10 +70,10 @@
 ! SUBROUTINE TO CHECK TO SEE IF THE GAME IS OVER      
 ! =========================================
       SUBROUTINE CHKOVR(TICTAC,OVER,WINNER)
-      character * 1 :: TICTAC(3,3), WINNER
+      character(1) :: TICTAC(3,3), WINNER
       logical :: OVER
       
-      character * 1 :: BLANK, DRAW
+      character(1) :: BLANK, DRAW
       PARAMETER (BLANK = ' ', DRAW = 'D')
 
       logical :: SAME
@@ -127,7 +127,7 @@
       SUBROUTINE COMPMOVE(TICTAC)
       implicit none
       integer :: I, J
-      character * 1 :: TICTAC(3,3)
+      character(1) :: TICTAC(3,3)
       integer :: PATHS(3,8), PATHSUM(8)
       DATA PATHS/1,2,3,4,5,6,7,8,9,
      +           1,4,7,2,5,8,3,6,9,
@@ -211,7 +211,7 @@
       SUBROUTINE BOARDSETUP(TICTAC)
       implicit none
       integer :: I, J
-      character * 1 :: TICTAC(3,3)
+      character(1) :: TICTAC(3,3)
 
       DO 310 I = 1,3
       DO 300 J = 1,3
@@ -224,7 +224,7 @@
 ! SUBROUTINE TO CHECK HUMAN PLAY  
 ! ========================================= 
       LOGICAL FUNCTION CHKPLAY(TICTAC,MOVE)
-      character * 1 :: TICTAC(3,3)
+      character(1) :: TICTAC(3,3)
       integer :: MOVE
                 
       GO TO (401,402,403,404,405,406,407,408,409) MOVE
