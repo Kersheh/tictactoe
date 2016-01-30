@@ -2,11 +2,11 @@
       PROGRAM TICTACTOE
       implicit none
       
-      INTEGER I, J
-      CHARACTER * 1 TICTAC(3,3), WINNER
-      LOGICAL OVER
-      LOGICAL CHKPLAY
-      INTEGER MOVE, TURN
+      integer :: I, J
+      character * 1 :: TICTAC(3,3), WINNER
+      logical :: OVER
+      logical :: CHKPLAY
+      integer :: MOVE, TURN
 
       WRITE(*,*) "PLAY TIC-TAC-TOE. ENTER 1-9 TO PLAY"
       WRITE(*,*) " "
@@ -70,15 +70,15 @@
 ! SUBROUTINE TO CHECK TO SEE IF THE GAME IS OVER      
 ! =========================================
       SUBROUTINE CHKOVR(TICTAC,OVER,WINNER)
-      CHARACTER * 1 TICTAC(3,3), WINNER
-      LOGICAL OVER
+      character * 1 :: TICTAC(3,3), WINNER
+      logical :: OVER
       
-      CHARACTER * 1 BLANK, DRAW
+      character * 1 :: BLANK, DRAW
       PARAMETER (BLANK = ' ', DRAW = 'D')
 
-      LOGICAL SAME
-      LOGICAL DSAME
-      INTEGER IR, IC
+      logical :: SAME
+      logical :: DSAME
+      integer :: IR, IC
 
 ! ASSUME GAME IS OVER AT START
       OVER = .TRUE.
@@ -126,13 +126,13 @@
 ! =========================================
       SUBROUTINE COMPMOVE(TICTAC)
       implicit none
-      INTEGER I, J
-      CHARACTER * 1 TICTAC(3,3)
-      INTEGER PATHS(3,8), PATHSUM(8)
+      integer :: I, J
+      character * 1 :: TICTAC(3,3)
+      integer :: PATHS(3,8), PATHSUM(8)
       DATA PATHS/1,2,3,4,5,6,7,8,9,
      +           1,4,7,2,5,8,3,6,9,
      +           1,5,9,3,5,7/
-      INTEGER BOARD(9,2), K, X, Y, RANDPOS
+      integer :: BOARD(9,2), K, X, Y, RANDPOS
       DATA BOARD/1,1,1,2,2,2,3,3,3,1,2,3,1,2,3,1,2,3/
 
       
@@ -197,7 +197,7 @@
 ! ARE THE SAME           
 ! =========================================
       LOGICAL FUNCTION SAME(T1,T2,T3)
-      CHARACTER T1,T2,T3
+      character :: T1,T2,T3
       
       IF (T1 .EQ. "X" .AND. T2 .EQ. "X" .AND. T3 .EQ. "X") GOTO 200      
       IF (T1 .EQ. "O" .AND. T2 .EQ. "O" .AND. T3 .EQ. "O") GOTO 200      
@@ -210,8 +210,8 @@
 ! =========================================  
       SUBROUTINE BOARDSETUP(TICTAC)
       implicit none
-      INTEGER I, J
-      CHARACTER * 1 TICTAC(3,3)
+      integer :: I, J
+      character * 1 :: TICTAC(3,3)
 
       DO 310 I = 1,3
       DO 300 J = 1,3
@@ -224,8 +224,8 @@
 ! SUBROUTINE TO CHECK HUMAN PLAY  
 ! ========================================= 
       LOGICAL FUNCTION CHKPLAY(TICTAC,MOVE)
-      CHARACTER * 1 TICTAC(3,3)
-      INTEGER MOVE
+      character * 1 :: TICTAC(3,3)
+      integer :: MOVE
                 
       GO TO (401,402,403,404,405,406,407,408,409) MOVE
   401 IF (TICTAC(1,1) .EQ. " ") GOTO 411
