@@ -1,6 +1,8 @@
 ! A PROGRAM TO PLAY TIC-TAC-TOE
       PROGRAM TICTACTOE
+      implicit none
       
+      INTEGER I, J
       CHARACTER * 1 TICTAC(3,3), WINNER
       LOGICAL OVER
       LOGICAL CHKPLAY
@@ -123,6 +125,8 @@
 ! SUBROUTINE TO PLAY FOR THE COMPUTER  
 ! =========================================
       SUBROUTINE COMPMOVE(TICTAC)
+      implicit none
+      INTEGER I, J
       CHARACTER * 1 TICTAC(3,3)
       INTEGER PATHS(3,8), PATHSUM(8)
       DATA PATHS/1,2,3,4,5,6,7,8,9,
@@ -205,6 +209,8 @@
 ! SUBROUTINE TO SET UP THE TIC-TAC-TOE BOARD  
 ! =========================================  
       SUBROUTINE BOARDSETUP(TICTAC)
+      implicit none
+      INTEGER I, J
       CHARACTER * 1 TICTAC(3,3)
 
       DO 310 I = 1,3
@@ -217,7 +223,7 @@
 
 ! SUBROUTINE TO CHECK HUMAN PLAY  
 ! ========================================= 
-      LOGICAL FUNCTION CHKPLAY(TICTAC,MOVE) 
+      LOGICAL FUNCTION CHKPLAY(TICTAC,MOVE)
       CHARACTER * 1 TICTAC(3,3)
       INTEGER MOVE
                 
