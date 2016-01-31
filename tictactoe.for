@@ -1,251 +1,251 @@
-! A PROGRAM TO PLAY TIC-TAC-TOE
-      PROGRAM TICTACTOE
+! A program to play Tic-Tac-Toe.
+      program tictactoe
       implicit none
       
-      integer :: I, J
-      character(1) :: TICTAC(3,3), WINNER
-      logical :: OVER
-      logical :: CHKPLAY
-      integer :: MOVE, TURN
+      integer :: i, j
+      character(1) :: tictac(3,3), winner
+      logical :: over
+      logical :: chkplay
+      integer :: move, turn
 
-      WRITE(*,*) "PLAY TIC-TAC-TOE. ENTER 1-9 TO PLAY"
-      WRITE(*,*) " "
-      WRITE(*,*) "        1 | 2 | 3 "
-      WRITE(*,*) "       ---+---+---"
-      WRITE(*,*) "        4 | 5 | 6 "
-      WRITE(*,*) "       ---+---+---"
-      WRITE(*,*) "        7 | 8 | 9 "
-      WRITE(*,*) " "
+      write(*,*) "Play Tic-Tac-Toe. Enter 1-9 to play:"
+      write(*,*) " "
+      write(*,*) "        1 | 2 | 3 "
+      write(*,*) "       ---+---+---"
+      write(*,*) "        4 | 5 | 6 "
+      write(*,*) "       ---+---+---"
+      write(*,*) "        7 | 8 | 9 "
+      write(*,*) " "
             
-      CALL BOARDSETUP(TICTAC)
+      call boardsetup(tictac)
       
-   10 TURN = 0
-      WRITE(*,*) "Your move? "
-      READ(*,*) MOVE
-      IF (MOVE .GT. 0 .AND. MOVE .LE. 9) GO TO 11
-      WRITE(*,*) "Invalid input."
-      GO TO 10
-   11 IF (CHKPLAY(TICTAC,MOVE)) GO TO 12
-      WRITE(*,*) "Invalid move, box already occupied."
-      GO TO 10
-   12 IF (MOVE .EQ. 1) TICTAC(1,1) = "X"
-      IF (MOVE .EQ. 2) TICTAC(1,2) = "X"
-      IF (MOVE .EQ. 3) TICTAC(1,3) = "X"
-      IF (MOVE .EQ. 4) TICTAC(2,1) = "X"
-      IF (MOVE .EQ. 5) TICTAC(2,2) = "X"
-      IF (MOVE .EQ. 6) TICTAC(2,3) = "X"
-      IF (MOVE .EQ. 7) TICTAC(3,1) = "X"
-      IF (MOVE .EQ. 8) TICTAC(3,2) = "X"
-      IF (MOVE .EQ. 9) TICTAC(3,3) = "X"
+   10 turn = 0
+      write(*,*) "Your move? "
+      read(*,*) move
+      if (move .gt. 0 .and. move .le. 9) go to 11
+      write(*,*) "Invalid input."
+      go to 10
+   11 if (chkplay(tictac,move)) go to 12
+      write(*,*) "Invalid move, box already occupied."
+      go to 10
+   12 if (move .eq. 1) tictac(1,1) = "x"
+      if (move .eq. 2) tictac(1,2) = "x"
+      if (move .eq. 3) tictac(1,3) = "x"
+      if (move .eq. 4) tictac(2,1) = "x"
+      if (move .eq. 5) tictac(2,2) = "x"
+      if (move .eq. 6) tictac(2,3) = "x"
+      if (move .eq. 7) tictac(3,1) = "x"
+      if (move .eq. 8) tictac(3,2) = "x"
+      if (move .eq. 9) tictac(3,3) = "x"
       
-   14 IF (TURN .EQ. 0) WRITE(*,*) "After your move..."
-      IF (TURN .EQ. 1) WRITE(*,*) "After my move..."
-      DO 20 I=1,3
-      WRITE(*,400) (TICTAC(I,J), J=1,3)
-  400 FORMAT(2X,A1,1X,"|",1X,A1,1X,"|",1X,A1,1X)
-      GO TO (15,15,20) I
-   15 WRITE(*,*) "---+---+---"
-   20 CONTINUE
-      IF (TURN .EQ. 1) GOTO 16
+   14 if (turn .eq. 0) write(*,*) "After your move..."
+      if (turn .eq. 1) write(*,*) "After my move..."
+      do 20 i=1,3
+      write(*,400) (tictac(i,j), j=1,3)
+  400 format(2x,a1,1x,"|",1x,a1,1x,"|",1x,a1,1x)
+      go to (15,15,20) i
+   15 write(*,*) "---+---+---"
+   20 continue
+      if (turn .eq. 1) goto 16
       
-      CALL CHKOVR(TICTAC,OVER,WINNER)
-      IF (OVER) GOTO 30
+      call chkovr(tictac,over,winner)
+      if (over) goto 30
       
-      TURN = 1
-      CALL COMPMOVE(TICTAC)
-      GOTO 14
-   16 CALL CHKOVR(TICTAC,OVER,WINNER)
-      IF (OVER) GOTO 30           
-      GOTO 10
+      turn = 1
+      call compmove(tictac)
+      goto 14
+   16 call chkovr(tictac,over,winner)
+      if (over) goto 30           
+      goto 10
       
-   30 WRITE(*,*) "The game is over!"
-      IF (WINNER .EQ. "D") THEN
-      WRITE(*,*) "The game is a draw. "
-      ELSE
-      WRITE(*,*) "The winner is: ", WINNER
-      END IF      
-      STOP 
-      END
+   30 write(*,*) "The game is over!"
+      if (winner .eq. "d") then
+      write(*,*) "The game is a draw."
+      else
+      write(*,*) "The winner is: ", winner
+      end if      
+      stop 
+      end
       
-! SUBROUTINE TO CHECK TO SEE IF THE GAME IS OVER      
+! Subroutine to check to see if the game is over.    
 ! =========================================
-      SUBROUTINE CHKOVR(TICTAC,OVER,WINNER)
-      character(1) :: TICTAC(3,3), WINNER
-      logical :: OVER
+      subroutine chkovr(tictac,over,winner)
+      character(1) :: tictac(3,3), winner
+      logical :: over
       
-      character(1) :: BLANK, DRAW
-      PARAMETER (BLANK = ' ', DRAW = 'D')
+      character(1) :: blank, draw
+      parameter (blank = ' ', draw = 'd')
 
-      logical :: SAME
-      logical :: DSAME
-      integer :: IR, IC
+      logical :: same
+      logical :: dsame
+      integer :: ir, ic
 
-! ASSUME GAME IS OVER AT START
-      OVER = .TRUE.
+! Assume game is over at start.
+      over = .true.
 !
-! CHECK FOR A WINNER
-! CHECK ROWS FOR A WINNER
-      DO 100 IR = 1, 3
-      IF (SAME(TICTAC(IR,1),TICTAC(IR,2),TICTAC(IR,3))) THEN
-      WINNER = TICTAC(IR,1)
-      RETURN
-      END IF
-  100 CONTINUE
-! NO WINNER BY ROWS, CHECK COLUMNS FOR A WINNER
-      DO 110 IC = 1, 3
-      IF (SAME(TICTAC(1,IC),TICTAC(2,IC),TICTAC(3,IC))) THEN
-      WINNER = TICTAC(1,IC)
-      RETURN
-      END IF
-  110 CONTINUE 
-! NO WINNER BY ROWS OR COLUMNS, CHECK DIAGONALS
-      DSAME = SAME(TICTAC(1,1),TICTAC(2,2),TICTAC(3,3)) 
-     +   .OR. SAME(TICTAC(1,3),TICTAC(2,2),TICTAC(3,1)) 
-      IF (DSAME) THEN
-      WINNER = TICTAC(2,2)
-      RETURN
-      END IF
-! NO WINNER AT ALL. SEE IF GAME IS A DRAW
-! CHECK EACH ROW FOR AN EMPTY SPACE
-      DO 140 IR = 1,3
-      DO 145 IC = 1,3
-      IF (TICTAC(IR,IC) .EQ. BLANK) THEN
-      OVER = .FALSE.
-      RETURN
-      END IF
-  145 CONTINUE
-  140 CONTINUE
+! Check for a winner.
+! Check rows for a winner.
+      do 100 ir = 1, 3
+      if (same(tictac(ir,1),tictac(ir,2),tictac(ir,3))) then
+      winner = tictac(ir,1)
+      return
+      end if
+  100 continue
+! No winner by rows, check columns for a winner.
+      do 110 ic = 1, 3
+      if (same(tictac(1,ic),tictac(2,ic),tictac(3,ic))) then
+      winner = tictac(1,ic)
+      return
+      end if
+  110 continue 
+! No winner by rows or columns, check diagonals.
+      dsame = same(tictac(1,1),tictac(2,2),tictac(3,3)) 
+     +   .or. same(tictac(1,3),tictac(2,2),tictac(3,1)) 
+      if (dsame) then
+      winner = tictac(2,2)
+      return
+      end if
+! No winner at all. See if game is a draw.
+! Check each row for an empty space.
+      do 140 ir = 1,3
+      do 145 ic = 1,3
+      if (tictac(ir,ic) .eq. blank) then
+      over = .false.
+      return
+      end if
+  145 continue
+  140 continue
 ! 
-! NO BLANK FOUND, GAME IS A DRAW
-      WINNER = DRAW
+! No blank found, game is a draw.
+      winner = draw
 
-      RETURN    
-      END
+      return    
+      end
       
-! SUBROUTINE TO PLAY FOR THE COMPUTER  
+! Subroutine to play for the computer.
 ! =========================================
-      SUBROUTINE COMPMOVE(TICTAC)
+      subroutine compmove(tictac)
       implicit none
-      integer :: I, J
-      character(1) :: TICTAC(3,3)
-      integer :: PATHS(3,8), PATHSUM(8)
-      DATA PATHS/1,2,3,4,5,6,7,8,9,
+      integer :: i, j
+      character(1) :: tictac(3,3)
+      integer :: paths(3,8), pathsum(8)
+      data paths/1,2,3,4,5,6,7,8,9,
      +           1,4,7,2,5,8,3,6,9,
      +           1,5,9,3,5,7/
-      integer :: BOARD(9,2), K, X, Y, RANDPOS
-      DATA BOARD/1,1,1,2,2,2,3,3,3,1,2,3,1,2,3,1,2,3/
+      integer :: board(9,2), k, x, y, randpos
+      data board/1,1,1,2,2,2,3,3,3,1,2,3,1,2,3,1,2,3/
 
       
-!     YOUR CODE GOES HERE 
+!     Your code goes here.
 
-!     CALCULATE THE PATHSUMS
-      DO 150 I = 1,8
-      PATHSUM(I) = 0
-      DO 149 J = 1,3
-      X = BOARD(PATHS(J,I),1)
-      Y = BOARD(PATHS(J,I),2)
-      IF (TICTAC(X,Y) .EQ. " ") K = 0
-      IF (TICTAC(X,Y) .EQ. "X") K = 1
-      IF (TICTAC(X,Y) .EQ. "O") K = 4 
-      PATHSUM(I) = PATHSUM(I) + K     
-  149 CONTINUE
-  150 CONTINUE 
+!     Calculate the pathsums.
+      do 150 i = 1,8
+      pathsum(i) = 0
+      do 149 j = 1,3
+      x = board(paths(j,i),1)
+      y = board(paths(j,i),2)
+      if (tictac(x,y) .eq. " ") k = 0
+      if (tictac(x,y) .eq. "x") k = 1
+      if (tictac(x,y) .eq. "o") k = 4 
+      pathsum(i) = pathsum(i) + k     
+  149 continue
+  150 continue 
 
-!     OFFENSIVE CODE TO DEAL WITH SCENARIOS WHERE THE
-!     COMPUTER HAS TWO IN A PATH
-      DO 155 I = 1,8
-      IF (PATHSUM(I) .EQ. 8) THEN
-      DO 154 J = 1,3
-      X = BOARD(PATHS(J,I),1)
-      Y = BOARD(PATHS(J,I),2)
-      IF (TICTAC(X,Y) .EQ. " ") THEN
-      TICTAC(X,Y) = "O"
-      RETURN
-      END IF
-  154 CONTINUE
-      END IF
-  155 CONTINUE
+!     Offensive code to deal with scenarios where the
+!     computer has two in a path.
+      do 155 i = 1,8
+      if (pathsum(i) .eq. 8) then
+      do 154 j = 1,3
+      x = board(paths(j,i),1)
+      y = board(paths(j,i),2)
+      if (tictac(x,y) .eq. " ") then
+      tictac(x,y) = "o"
+      return
+      end if
+  154 continue
+      end if
+  155 continue
   
-!     DEFENSIVE CODE TO DEAL WITH SCENARIOS WHERE THE
-!     OPPONENT HAS TWO IN A PATH
-      DO 160 I = 1,8
-      IF (PATHSUM(I) .EQ. 2) THEN
-      DO 159 J = 1,3
-      X = BOARD(PATHS(J,I),1)
-      Y = BOARD(PATHS(J,I),2)
-      IF (TICTAC(X,Y) .EQ. " ") THEN
-      TICTAC(X,Y) = "O"
-      RETURN
-      END IF
-  159 CONTINUE
-      END IF
-  160 CONTINUE
+!     Defensive code to deal with scenarios where the
+!     opponent has two in a path.
+      do 160 i = 1,8
+      if (pathsum(i) .eq. 2) then
+      do 159 j = 1,3
+      x = board(paths(j,i),1)
+      y = board(paths(j,i),2)
+      if (tictac(x,y) .eq. " ") then
+      tictac(x,y) = "o"
+      return
+      end if
+  159 continue
+      end if
+  160 continue
   
-  170 RANDPOS = INT(RAND(0)*9)+1
-      X = BOARD(RANDPOS,1)
-      Y = BOARD(RANDPOS,2)
-      IF (TICTAC(X,Y) .EQ. " ") THEN
-          TICTAC(X,Y) = "O"
-          RETURN
-      END IF
-      GO TO 170
+  170 randpos = int(rand(0)*9)+1
+      x = board(randpos,1)
+      y = board(randpos,2)
+      if (tictac(x,y) .eq. " ") then
+          tictac(x,y) = "o"
+          return
+      end if
+      go to 170
   
-      RETURN    
-      END
+      return    
+      end
 
-! FUNCTION TO CHECK TO SEE IF THREE ELEMENTS IN A ROW, COLUMN OR DIAGONAL
-! ARE THE SAME           
+! Function to check to see if three elements in a row, column, or diagonal
+! are the same.
 ! =========================================
-      LOGICAL FUNCTION SAME(T1,T2,T3)
-      character :: T1,T2,T3
+      logical function same(t1,t2,t3)
+      character :: t1,t2,t3
       
-      IF (T1 .EQ. "X" .AND. T2 .EQ. "X" .AND. T3 .EQ. "X") GOTO 200      
-      IF (T1 .EQ. "O" .AND. T2 .EQ. "O" .AND. T3 .EQ. "O") GOTO 200      
-      SAME = .FALSE.
-      GOTO 210
-  200 SAME = .TRUE.
-  210 END
+      if (t1 .eq. "x" .and. t2 .eq. "x" .and. t3 .eq. "x") goto 200      
+      if (t1 .eq. "o" .and. t2 .eq. "o" .and. t3 .eq. "o") goto 200      
+      same = .false.
+      goto 210
+  200 same = .true.
+  210 end
   
-! SUBROUTINE TO SET UP THE TIC-TAC-TOE BOARD  
+! Subroutine to set up the Tic-Tac-Toe board.
 ! =========================================  
-      SUBROUTINE BOARDSETUP(TICTAC)
+      subroutine boardsetup(tictac)
       implicit none
-      integer :: I, J
-      character(1) :: TICTAC(3,3)
+      integer :: i, j
+      character(1) :: tictac(3,3)
 
-      DO 310 I = 1,3
-      DO 300 J = 1,3
-      TICTAC(I,J) = " "
-  300 CONTINUE
-  310 CONTINUE
-      RETURN
-      END
+      do 310 i = 1,3
+      do 300 j = 1,3
+      tictac(i,j) = " "
+  300 continue
+  310 continue
+      return
+      end
 
-! SUBROUTINE TO CHECK HUMAN PLAY  
+! Subroutine to check human play.  
 ! ========================================= 
-      LOGICAL FUNCTION CHKPLAY(TICTAC,MOVE)
-      character(1) :: TICTAC(3,3)
-      integer :: MOVE
+      logical function chkplay(tictac,move)
+      character(1) :: tictac(3,3)
+      integer :: move
                 
-      GO TO (401,402,403,404,405,406,407,408,409) MOVE
-  401 IF (TICTAC(1,1) .EQ. " ") GOTO 411
-      GO TO 410
-  402 IF (TICTAC(1,2) .EQ. " ") GOTO 411
-      GO TO 410
-  403 IF (TICTAC(1,3) .EQ. " ") GOTO 411
-      GO TO 410
-  404 IF (TICTAC(2,1) .EQ. " ") GOTO 411
-      GO TO 410
-  405 IF (TICTAC(2,2) .EQ. " ") GOTO 411
-      GO TO 410
-  406 IF (TICTAC(2,3) .EQ. " ") GOTO 411
-      GO TO 410
-  407 IF (TICTAC(3,1) .EQ. " ") GOTO 411
-      GO TO 410
-  408 IF (TICTAC(3,2) .EQ. " ") GOTO 411
-      GO TO 410
-  409 IF (TICTAC(3,3) .EQ. " ") GOTO 411
-  410 CHKPLAY = .FALSE.
-      GOTO 412
-  411 CHKPLAY = .TRUE.
-  412 END
+      go to (401,402,403,404,405,406,407,408,409) move
+  401 if (tictac(1,1) .eq. " ") goto 411
+      go to 410
+  402 if (tictac(1,2) .eq. " ") goto 411
+      go to 410
+  403 if (tictac(1,3) .eq. " ") goto 411
+      go to 410
+  404 if (tictac(2,1) .eq. " ") goto 411
+      go to 410
+  405 if (tictac(2,2) .eq. " ") goto 411
+      go to 410
+  406 if (tictac(2,3) .eq. " ") goto 411
+      go to 410
+  407 if (tictac(3,1) .eq. " ") goto 411
+      go to 410
+  408 if (tictac(3,2) .eq. " ") goto 411
+      go to 410
+  409 if (tictac(3,3) .eq. " ") goto 411
+  410 chkplay = .false.
+      goto 412
+  411 chkplay = .true.
+  412 end
