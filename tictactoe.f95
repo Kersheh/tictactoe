@@ -89,19 +89,19 @@ subroutine chkovr(tictac,over,winner)
   !
   ! Check for a winner.
   ! Check rows for a winner.
-  do 100 ir = 1, 3
+  do ir = 1, 3
     if (same(tictac(ir,1),tictac(ir,2),tictac(ir,3))) then
       winner = tictac(ir,1)
       return
     end if
-  100 continue
+  end do
   ! No winner by rows, check columns for a winner.
-  do 110 ic = 1, 3
+  do ic = 1, 3
     if (same(tictac(1,ic),tictac(2,ic),tictac(3,ic))) then
       winner = tictac(1,ic)
       return
     end if
-  110 continue 
+  end do
   ! No winner by rows or columns, check diagonals.
   dsame = same(tictac(1,1),tictac(2,2),tictac(3,3)) .or. same(tictac(1,3),tictac(2,2),tictac(3,1)) 
   if (dsame) then
@@ -110,14 +110,14 @@ subroutine chkovr(tictac,over,winner)
   end if
   ! No winner at all. See if game is a draw.
   ! Check each row for an empty space.
-  do 140 ir = 1,3
-    do 145 ic = 1,3
+  do ir = 1,3
+    do ic = 1,3
       if (tictac(ir,ic) .eq. blank) then
         over = .false.
         return
       end if
-    145 continue
-  140 continue
+    end do
+  end do
   ! 
   ! No blank found, game is a draw.
   winner = draw
@@ -139,47 +139,47 @@ subroutine compmove(tictac)
   !     Your code goes here.
 
   !     Calculate the pathsums.
-  do 150 i = 1,8
+  do i = 1,8
     pathsum(i) = 0
-    do 149 j = 1,3
+    do j = 1,3
       x = board(paths(j,i),1)
       y = board(paths(j,i),2)
       if (tictac(x,y) .eq. " ") k = 0
       if (tictac(x,y) .eq. "x") k = 1
       if (tictac(x,y) .eq. "o") k = 4 
       pathsum(i) = pathsum(i) + k     
-    149 continue
-  150 continue 
+    end do
+  end do
 
   !     Offensive code to deal with scenarios where the
   !     computer has two in a path.
-  do 155 i = 1,8
+  do i = 1,8
     if (pathsum(i) .eq. 8) then
-      do 154 j = 1,3
+      do j = 1,3
         x = board(paths(j,i),1)
         y = board(paths(j,i),2)
         if (tictac(x,y) .eq. " ") then
           tictac(x,y) = "o"
           return
         end if
-      154 continue
+      end do
     end if
-  155 continue
+  end do
 
   !     Defensive code to deal with scenarios where the
   !     opponent has two in a path.
-  do 160 i = 1,8
+  do i = 1,8
     if (pathsum(i) .eq. 2) then
-      do 159 j = 1,3
+      do j = 1,3
         x = board(paths(j,i),1)
         y = board(paths(j,i),2)
         if (tictac(x,y) .eq. " ") then
           tictac(x,y) = "o"
           return
         end if
-      159 continue
+      end do
     end if
-  160 continue
+  end do
 
   170 randpos = int(rand(0)*9)+1
   x = board(randpos,1)
@@ -213,11 +213,11 @@ subroutine boardsetup(tictac)
   integer :: i, j
   character(1) :: tictac(3,3)
 
-  do 310 i = 1,3
-    do 300 j = 1,3
+  do i = 1,3
+    do j = 1,3
       tictac(i,j) = " "
-    300 continue
-  310 continue
+    end do
+  end do
   return
 end
 
