@@ -19,15 +19,6 @@ program tictactoe
 
   call boardsetup(tictac)
 
-!   10 turn = 0
-!   write(*,*) "Your move? "
-!   read(*,*) move
-!   if (move .gt. 0 .and. move .le. 9) go to 11
-!   write(*,*) "Invalid input."
-!   go to 10
-!   11 if (chkplay(tictac,move)) go to 12
-!   write(*,*) "Invalid move, box already occupied."
-!   go to 10
   do
     do 
       turn = 0
@@ -44,8 +35,7 @@ program tictactoe
       end if
     end do
 
-
-    12 if (move .eq. 1) tictac(1,1) = "x"
+    if (move .eq. 1) tictac(1,1) = "x"
     if (move .eq. 2) tictac(1,2) = "x"
     if (move .eq. 3) tictac(1,3) = "x"
     if (move .eq. 4) tictac(2,1) = "x"
@@ -55,27 +45,26 @@ program tictactoe
     if (move .eq. 8) tictac(3,2) = "x"
     if (move .eq. 9) tictac(3,3) = "x"
 
-    14 if (turn .eq. 0) write(*,*) "After your move..."
-    if (turn .eq. 1) write(*,*) "After my move..."
-    do 20 i=1,3
-      write(*,400) (tictac(i,j), j=1,3)
-      400 format(2x,a1,1x,"|",1x,a1,1x,"|",1x,a1,1x)
-      go to (15,15,20) i
-      15 write(*,*) "---+---+---"
-    20 continue
-    if (turn .eq. 1) goto 16
-
+    do
+      if (turn .eq. 0) write(*,*) "After your move..."
+      if (turn .eq. 1) write(*,*) "After my move..."
+      do 20 i=1,3
+        write(*,400) (tictac(i,j), j=1,3)
+        400 format(2x,a1,1x,"|",1x,a1,1x,"|",1x,a1,1x)
+        go to (15,15,20) i
+        15 write(*,*) "---+---+---"
+      20 continue
+      call chkovr(tictac,over,winner)
+      if (over) exit
+      if (turn .eq. 1) exit
+      turn = 1
+      call compmove(tictac)
+    end do
     call chkovr(tictac,over,winner)
-    if (over) exit
-
-    turn = 1
-    call compmove(tictac)
-    goto 14
-    16 call chkovr(tictac,over,winner)
     if (over) exit
   end do
 
-  30 write(*,*) "The game is over!"
+  write(*,*) "The game is over!"
   if (winner .eq. "d") then
     write(*,*) "The game is a draw."
   else
