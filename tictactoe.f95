@@ -227,25 +227,25 @@ logical function chkplay(tictac,move)
   character(1) :: tictac(3,3)
   integer :: move
 
-  go to (401,402,403,404,405,406,407,408,409) move
-  401 if (tictac(1,1) == " ") goto 411
-  go to 410
-  402 if (tictac(1,2) == " ") goto 411
-  go to 410
-  403 if (tictac(1,3) == " ") goto 411
-  go to 410
-  404 if (tictac(2,1) == " ") goto 411
-  go to 410
-  405 if (tictac(2,2) == " ") goto 411
-  go to 410
-  406 if (tictac(2,3) == " ") goto 411
-  go to 410
-  407 if (tictac(3,1) == " ") goto 411
-  go to 410
-  408 if (tictac(3,2) == " ") goto 411
-  go to 410
-  409 if (tictac(3,3) == " ") goto 411
-  410 chkplay = .false.
-  goto 412
-  411 chkplay = .true.
-412 end
+  chkplay = .false.
+  select case (move)
+    case (1)
+      if (tictac(1,1) == " ") chkplay = .true.
+    case (2)
+      if (tictac(1,2) == " ") chkplay = .true.
+    case (3)
+      if (tictac(1,3) == " ") chkplay = .true.
+    case (4)
+      if (tictac(2,1) == " ") chkplay = .true.
+    case (5)
+      if (tictac(2,2) == " ") chkplay = .true.
+    case (6)
+      if (tictac(2,3) == " ") chkplay = .true.
+    case (7)
+      if (tictac(3,1) == " ") chkplay = .true.
+    case (8)
+      if (tictac(3,2) == " ") chkplay = .true.
+    case (9)
+      if (tictac(3,3) == " ") chkplay = .true.
+  end select
+end
