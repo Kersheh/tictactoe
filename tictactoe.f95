@@ -2,17 +2,17 @@
 program tictactoe
   implicit none
 
-  integer :: i, j, move, turn
+  integer :: i, move, turn
   character(1) :: tictac(3,3), winner
   logical :: over, chkplay
 
   write(*,*) "Play Tic-Tac-Toe. Enter 1-9 to play:"
   write(*,*) " "
-  write(*,*) "        1 | 2 | 3 "
-  write(*,*) "       ---+---+---"
-  write(*,*) "        4 | 5 | 6 "
-  write(*,*) "       ---+---+---"
-  write(*,*) "        7 | 8 | 9 "
+  write(*,*) " 1 | 2 | 3 "
+  write(*,*) "---+---+---"
+  write(*,*) " 4 | 5 | 6 "
+  write(*,*) "---+---+---"
+  write(*,*) " 7 | 8 | 9 "
   write(*,*) " "
 
   call boardsetup(tictac)
@@ -47,8 +47,7 @@ program tictactoe
       if (turn == 0) write(*,*) "After your move..."
       if (turn == 1) write(*,*) "After my move..."
       do i=1,3
-        write(*,400) (tictac(i,j), j=1,3)
-        400 format(2x,a1,1x,"|",1x,a1,1x,"|",1x,a1,1x)
+        write(*, *) " ", tictac(i,1), " | ", tictac(i,2), " | ", tictac(i,3)
         if (i < 3) write(*,*) "---+---+---"
       end do
       call chkovr(tictac,over,winner)
