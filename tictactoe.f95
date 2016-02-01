@@ -1,4 +1,11 @@
-! A program to play Tic-Tac-Toe.
+! Tic-Tac-Toe
+! A simple program to play the classic game of Tic-Tac-Toe.
+! Program prompts user on each turn to select a square.
+! Computer player first checks for a winning move; if none 
+! available it then checks for a move to prevent the player
+! from winning; if none available it then selects a random 
+! position on the board.
+
 program tictactoe
   implicit none
 
