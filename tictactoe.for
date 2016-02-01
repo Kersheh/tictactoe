@@ -73,8 +73,7 @@
       character(1) :: tictac(3,3), winner
       logical :: over
       
-      character(1) :: blank, draw
-      parameter (blank = ' ', draw = 'd')
+      character(1), parameter :: blank = ' ', draw = 'd'
 
       logical :: same
       logical :: dsame
@@ -133,9 +132,8 @@
      +           1,4,7,2,5,8,3,6,9,
      +           1,5,9,3,5,7/
       integer :: board(9,2), k, x, y, randpos
-      data board/1,1,1,2,2,2,3,3,3,1,2,3,1,2,3,1,2,3/
+      data board / 1,1,1,2,2,2,3,3,3,1,2,3,1,2,3,1,2,3 /
 
-      
 !     Your code goes here.
 
 !     Calculate the pathsums.
