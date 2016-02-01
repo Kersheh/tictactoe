@@ -2,11 +2,9 @@
 program tictactoe
   implicit none
 
-  integer :: i, j
+  integer :: i, j, move, turn
   character(1) :: tictac(3,3), winner
-  logical :: over
-  logical :: chkplay
-  integer :: move, turn
+  logical :: over, chkplay
 
   write(*,*) "Play Tic-Tac-Toe. Enter 1-9 to play:"
   write(*,*) " "
@@ -75,17 +73,13 @@ end
 ! =========================================
 subroutine chkovr(tictac,over,winner)
   character(1) :: tictac(3,3), winner
-  logical :: over
-
-  character(1), parameter :: blank = ' ', draw = 'd'
-
-  logical :: same
-  logical :: dsame
+  logical :: over, same, dsame
   integer :: ir, ic
+  character(1), parameter :: blank = ' ', draw = 'd'
 
   ! Assume game is over at start.
   over = .true.
-  !
+
   ! Check for a winner.
   ! Check rows for a winner.
   do ir = 1, 3
@@ -117,7 +111,7 @@ subroutine chkovr(tictac,over,winner)
       end if
     end do
   end do
-  ! 
+
   ! No blank found, game is a draw.
   winner = draw
 
@@ -128,13 +122,10 @@ end
 ! =========================================
 subroutine compmove(tictac)
   implicit none
-  integer :: i, j
+  integer :: i, j, pathsum(8), k, x, y, randpos
   character(1) :: tictac(3,3)
-  integer :: pathsum(8), k, x, y, randpos
   integer, dimension(3,8) :: paths = reshape((/1,2,3,4,5,6,7,8,9,1,4,7,2,5,8,3,6,9,1,5,9,3,5,7/), shape(paths))
   integer, dimension(9,2) :: board = reshape((/ 1,1,1,2,2,2,3,3,3,1,2,3,1,2,3,1,2,3 /), shape(board))
-
-  !     Your code goes here.
 
   !     Calculate the pathsums.
   do i = 1,8
