@@ -24,7 +24,7 @@ program tictactoe
       turn = 0
       write(*,*) "Your move? "
       read(*,*) move
-      if (move .lt. 1 .and. move .gt. 9) then
+      if (move < 1 .and. move > 9) then
         write(*,*) "Invalid input."
         cycle
       else if (chkplay(tictac,move)) then
@@ -35,19 +35,19 @@ program tictactoe
       end if
     end do
 
-    if (move .eq. 1) tictac(1,1) = "x"
-    if (move .eq. 2) tictac(1,2) = "x"
-    if (move .eq. 3) tictac(1,3) = "x"
-    if (move .eq. 4) tictac(2,1) = "x"
-    if (move .eq. 5) tictac(2,2) = "x"
-    if (move .eq. 6) tictac(2,3) = "x"
-    if (move .eq. 7) tictac(3,1) = "x"
-    if (move .eq. 8) tictac(3,2) = "x"
-    if (move .eq. 9) tictac(3,3) = "x"
+    if (move == 1) tictac(1,1) = "x"
+    if (move == 2) tictac(1,2) = "x"
+    if (move == 3) tictac(1,3) = "x"
+    if (move == 4) tictac(2,1) = "x"
+    if (move == 5) tictac(2,2) = "x"
+    if (move == 6) tictac(2,3) = "x"
+    if (move == 7) tictac(3,1) = "x"
+    if (move == 8) tictac(3,2) = "x"
+    if (move == 9) tictac(3,3) = "x"
 
     do
-      if (turn .eq. 0) write(*,*) "After your move..."
-      if (turn .eq. 1) write(*,*) "After my move..."
+      if (turn == 0) write(*,*) "After your move..."
+      if (turn == 1) write(*,*) "After my move..."
       do 20 i=1,3
         write(*,400) (tictac(i,j), j=1,3)
         400 format(2x,a1,1x,"|",1x,a1,1x,"|",1x,a1,1x)
@@ -56,7 +56,7 @@ program tictactoe
       20 continue
       call chkovr(tictac,over,winner)
       if (over) exit
-      if (turn .eq. 1) exit
+      if (turn == 1) exit
       turn = 1
       call compmove(tictac)
     end do
@@ -65,7 +65,7 @@ program tictactoe
   end do
 
   write(*,*) "The game is over!"
-  if (winner .eq. "d") then
+  if (winner == "d") then
     write(*,*) "The game is a draw."
   else
     write(*,*) "The winner is: ", winner
@@ -112,7 +112,7 @@ subroutine chkovr(tictac,over,winner)
   ! Check each row for an empty space.
   do ir = 1,3
     do ic = 1,3
-      if (tictac(ir,ic) .eq. blank) then
+      if (tictac(ir,ic) == blank) then
         over = .false.
         return
       end if
@@ -144,9 +144,9 @@ subroutine compmove(tictac)
     do j = 1,3
       x = board(paths(j,i),1)
       y = board(paths(j,i),2)
-      if (tictac(x,y) .eq. " ") k = 0
-      if (tictac(x,y) .eq. "x") k = 1
-      if (tictac(x,y) .eq. "o") k = 4 
+      if (tictac(x,y) == " ") k = 0
+      if (tictac(x,y) == "x") k = 1
+      if (tictac(x,y) == "o") k = 4 
       pathsum(i) = pathsum(i) + k     
     end do
   end do
@@ -154,11 +154,11 @@ subroutine compmove(tictac)
   !     Offensive code to deal with scenarios where the
   !     computer has two in a path.
   do i = 1,8
-    if (pathsum(i) .eq. 8) then
+    if (pathsum(i) == 8) then
       do j = 1,3
         x = board(paths(j,i),1)
         y = board(paths(j,i),2)
-        if (tictac(x,y) .eq. " ") then
+        if (tictac(x,y) == " ") then
           tictac(x,y) = "o"
           return
         end if
@@ -169,11 +169,11 @@ subroutine compmove(tictac)
   !     Defensive code to deal with scenarios where the
   !     opponent has two in a path.
   do i = 1,8
-    if (pathsum(i) .eq. 2) then
+    if (pathsum(i) == 2) then
       do j = 1,3
         x = board(paths(j,i),1)
         y = board(paths(j,i),2)
-        if (tictac(x,y) .eq. " ") then
+        if (tictac(x,y) == " ") then
           tictac(x,y) = "o"
           return
         end if
@@ -184,7 +184,7 @@ subroutine compmove(tictac)
   170 randpos = int(rand(0)*9)+1
   x = board(randpos,1)
   y = board(randpos,2)
-  if (tictac(x,y) .eq. " ") then
+  if (tictac(x,y) == " ") then
     tictac(x,y) = "o"
     return
   end if
@@ -199,8 +199,8 @@ end
 logical function same(t1,t2,t3)
   character :: t1,t2,t3
 
-  if (t1 .eq. "x" .and. t2 .eq. "x" .and. t3 .eq. "x") goto 200      
-  if (t1 .eq. "o" .and. t2 .eq. "o" .and. t3 .eq. "o") goto 200      
+  if (t1 == "x" .and. t2 == "x" .and. t3 == "x") goto 200      
+  if (t1 == "o" .and. t2 == "o" .and. t3 == "o") goto 200      
   same = .false.
   goto 210
   200 same = .true.
@@ -228,23 +228,23 @@ logical function chkplay(tictac,move)
   integer :: move
 
   go to (401,402,403,404,405,406,407,408,409) move
-  401 if (tictac(1,1) .eq. " ") goto 411
+  401 if (tictac(1,1) == " ") goto 411
   go to 410
-  402 if (tictac(1,2) .eq. " ") goto 411
+  402 if (tictac(1,2) == " ") goto 411
   go to 410
-  403 if (tictac(1,3) .eq. " ") goto 411
+  403 if (tictac(1,3) == " ") goto 411
   go to 410
-  404 if (tictac(2,1) .eq. " ") goto 411
+  404 if (tictac(2,1) == " ") goto 411
   go to 410
-  405 if (tictac(2,2) .eq. " ") goto 411
+  405 if (tictac(2,2) == " ") goto 411
   go to 410
-  406 if (tictac(2,3) .eq. " ") goto 411
+  406 if (tictac(2,3) == " ") goto 411
   go to 410
-  407 if (tictac(3,1) .eq. " ") goto 411
+  407 if (tictac(3,1) == " ") goto 411
   go to 410
-  408 if (tictac(3,2) .eq. " ") goto 411
+  408 if (tictac(3,2) == " ") goto 411
   go to 410
-  409 if (tictac(3,3) .eq. " ") goto 411
+  409 if (tictac(3,3) == " ") goto 411
   410 chkplay = .false.
   goto 412
   411 chkplay = .true.
