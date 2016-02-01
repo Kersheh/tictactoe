@@ -75,7 +75,7 @@ subroutine chkovr(tictac,over,winner)
   character(1) :: tictac(3,3), winner
   logical :: over, same, dsame
   integer :: ir, ic
-  character(1), parameter :: blank = ' ', draw = 'd'
+  character(1), parameter :: blank = " ", draw = "d"
 
   ! Assume game is over at start.
   over = .true.
