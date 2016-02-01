@@ -199,12 +199,15 @@ end
 logical function same(t1,t2,t3)
   character :: t1,t2,t3
 
-  if (t1 == "x" .and. t2 == "x" .and. t3 == "x") goto 200      
-  if (t1 == "o" .and. t2 == "o" .and. t3 == "o") goto 200      
-  same = .false.
-  goto 210
-  200 same = .true.
-210 end
+  if (t1 == "x" .and. t2 == "x" .and. t3 == "x") then
+    same = .true.
+    return
+  else if (t1 == "o" .and. t2 == "o" .and. t3 == "o") then
+    same = .true. 
+  else
+    same = .false.
+  end if
+end
 
 ! Subroutine to set up the Tic-Tac-Toe board.
 ! =========================================  
