@@ -48,12 +48,11 @@ program tictactoe
     do
       if (turn == 0) write(*,*) "After your move..."
       if (turn == 1) write(*,*) "After my move..."
-      do 20 i=1,3
+      do i=1,3
         write(*,400) (tictac(i,j), j=1,3)
         400 format(2x,a1,1x,"|",1x,a1,1x,"|",1x,a1,1x)
-        go to (15,15,20) i
-        15 write(*,*) "---+---+---"
-      20 continue
+        if (i < 3) write(*,*) "---+---+---"
+      end do
       call chkovr(tictac,over,winner)
       if (over) exit
       if (turn == 1) exit
