@@ -180,14 +180,15 @@ subroutine compmove(tictac)
     end if
   end do
 
-  170 randpos = int(rand(0)*9)+1
-  x = board(randpos,1)
-  y = board(randpos,2)
-  if (tictac(x,y) == " ") then
-    tictac(x,y) = "o"
-    return
-  end if
-  go to 170
+  do
+    randpos = int(rand(0)*9)+1
+    x = board(randpos,1)
+    y = board(randpos,2)
+    if (tictac(x,y) == " ") then
+      tictac(x,y) = "o"
+      return
+    end if
+  end do
 
   return    
 end
