@@ -10,69 +10,78 @@ program tictactoe
   implicit none
 
   integer :: i, move, turn
-  character(1) :: tictac(3,3), winner
+  character(1) :: tictac(3,3), winner, replay
   logical :: over, chkplay
 
-  write(*,*) "Play Tic-Tac-Toe. Enter 1-9 to play:"
-  write(*,*) " "
-  write(*,*) " 1 | 2 | 3 "
-  write(*,*) "---+---+---"
-  write(*,*) " 4 | 5 | 6 "
-  write(*,*) "---+---+---"
-  write(*,*) " 7 | 8 | 9 "
-  write(*,*) " "
-
-  call boardsetup(tictac)
-
   do
-    do 
-      turn = 0
-      write(*,*) "Your move? "
-      read(*,*) move
-      if (move < 1 .and. move > 9) then
-        write(*,*) "Invalid input."
-        cycle
-      else if (chkplay(tictac,move)) then
-        exit
-      else 
-        write(*,*) "Invalid move, box already occupied."
-        cycle
-      end if
-    end do
+    write(*,*) "Play Tic-Tac-Toe. Enter 1-9 to play:"
+    write(*,*) " "
+    write(*,*) " 1 | 2 | 3 "
+    write(*,*) "---+---+---"
+    write(*,*) " 4 | 5 | 6 "
+    write(*,*) "---+---+---"
+    write(*,*) " 7 | 8 | 9 "
+    write(*,*) " "
 
-    if (move == 1) tictac(1,1) = "x"
-    if (move == 2) tictac(1,2) = "x"
-    if (move == 3) tictac(1,3) = "x"
-    if (move == 4) tictac(2,1) = "x"
-    if (move == 5) tictac(2,2) = "x"
-    if (move == 6) tictac(2,3) = "x"
-    if (move == 7) tictac(3,1) = "x"
-    if (move == 8) tictac(3,2) = "x"
-    if (move == 9) tictac(3,3) = "x"
+    call boardsetup(tictac)
 
     do
-      if (turn == 0) write(*,*) "After your move..."
-      if (turn == 1) write(*,*) "After my move..."
-      do i=1,3
-        write(*, *) " ", tictac(i,1), " | ", tictac(i,2), " | ", tictac(i,3)
-        if (i < 3) write(*,*) "---+---+---"
+      do 
+        turn = 0
+        write(*,*) "Your move? "
+        read(*,*) move
+        if (move < 1 .and. move > 9) then
+          write(*,*) "Invalid input."
+          cycle
+        else if (chkplay(tictac,move)) then
+          exit
+        else 
+          write(*,*) "Invalid move, box already occupied."
+          cycle
+        end if
+      end do
+
+      if (move == 1) tictac(1,1) = "x"
+      if (move == 2) tictac(1,2) = "x"
+      if (move == 3) tictac(1,3) = "x"
+      if (move == 4) tictac(2,1) = "x"
+      if (move == 5) tictac(2,2) = "x"
+      if (move == 6) tictac(2,3) = "x"
+      if (move == 7) tictac(3,1) = "x"
+      if (move == 8) tictac(3,2) = "x"
+      if (move == 9) tictac(3,3) = "x"
+
+      do
+        if (turn == 0) write(*,*) "After your move..."
+        if (turn == 1) write(*,*) "After my move..."
+        do i=1,3
+          write(*, *) " ", tictac(i,1), " | ", tictac(i,2), " | ", tictac(i,3)
+          if (i < 3) write(*,*) "---+---+---"
+        end do
+        call chkovr(tictac,over,winner)
+        if (over) exit
+        if (turn == 1) exit
+        turn = 1
+        call compmove(tictac)
       end do
       call chkovr(tictac,over,winner)
       if (over) exit
-      if (turn == 1) exit
-      turn = 1
-      call compmove(tictac)
     end do
-    call chkovr(tictac,over,winner)
-    if (over) exit
-  end do
 
-  write(*,*) "The game is over!"
-  if (winner == "d") then
-    write(*,*) "The game is a draw."
-  else
-    write(*,*) "The winner is: ", winner
-  end if
+    write(*,*) "The game is over!"
+    if (winner == "d") then
+      write(*,*) "The game is a draw."
+    else
+      write(*,*) "The winner is: ", winner
+    end if
+    do
+      write(*,*) "Play again? (y/n)"
+      read(*,*) replay
+      if(replay == "y" .or. replay == "n") exit
+      write(*,*) "Invalid input."
+    end do
+    if(replay == "n") exit
+  end do
 end
 
 ! Subroutine to check to see if the game is over.    
