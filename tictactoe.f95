@@ -10,7 +10,8 @@ program tictactoe
   implicit none
 
   integer :: i, move, turn
-  character(1) :: tictac(3,3), winner, replay
+  character(1), dimension(3,3) :: tictac
+  character(1) :: winner, replay
   logical :: over, chkplay
 
   do
@@ -87,7 +88,8 @@ end
 ! Subroutine to check to see if the game is over.    
 ! =========================================
 subroutine chkovr(tictac,over,winner)
-  character(1) :: tictac(3,3), winner
+  character(1), dimension(3,3) :: tictac
+  character(1) :: winner
   logical :: over, same, dsame
   integer :: ir, ic
   character(1), parameter :: blank = " ", draw = "d"
@@ -137,8 +139,9 @@ end
 ! =========================================
 subroutine compmove(tictac)
   implicit none
-  integer :: i, j, pathsum(8), k, x, y, randpos
-  character(1) :: tictac(3,3)
+  integer :: i, j, k, x, y, randpos
+  character(1), dimension(3,3) :: tictac
+  integer, dimension(8) :: pathsum
   integer, dimension(3,8) :: paths = reshape((/1,2,3,4,5,6,7,8,9,1,4,7,2,5,8,3,6,9,1,5,9,3,5,7/), shape(paths))
   integer, dimension(9,2) :: board = reshape((/ 1,1,1,2,2,2,3,3,3,1,2,3,1,2,3,1,2,3 /), shape(board))
 
@@ -219,7 +222,7 @@ end
 subroutine boardsetup(tictac)
   implicit none
   integer :: i, j
-  character(1) :: tictac(3,3)
+  character(1), dimension(3,3) :: tictac
 
   do i = 1,3
     do j = 1,3
@@ -232,7 +235,7 @@ end
 ! Subroutine to check human play.  
 ! ========================================= 
 logical function chkplay(tictac,move)
-  character(1) :: tictac(3,3)
+  character(1), dimension(3,3) :: tictac
   integer :: move
 
   chkplay = .false.
